@@ -9,247 +9,222 @@ datasource db {
 }
 
 enum AddressType {
-  Fatura
-  Sevk
-  Teslimat
+  INVOICE
+  SHIPMENT
+  DELIVERY
 }
 
 enum InvoiceType {
-  Purchase
-  Sales
-  Return
-  Cancel
-  Other
+  PURCHASE
+  SALES
+  RETURN
+  CANCEL
+  OTHER
 }
 
 enum DocumentType {
-  Invoice
-  Order
-  Waybill
-  Other
+  INVOICE
+  ORDER
+  WAYBILL
+  OTHER
 }
 
-enum StokManagementType {
-  Sayim
-  Devir
-  DepolarArasiTransfer
-  Uretim
-  Muhtelif
-  Maliyet
-  Konsinye
-  Teshir
-  AlisFaturasi
-  SatisFaturasi
-  HizliSatis
+enum StockManagementType {
+  INVENTORY_COUNT
+  TRANSFER
+  WAREHOUSE_TRANSFER
+  PRODUCTION
+  MISCELLANEOUS
+  COST
+  CONSIGNMENT
+  EXHIBITION
+  PURCHASE_INVOICE
+  SALES_INVOICE
+  QUICK_SALE
 }
 
-enum GCCode {
-  Giris
-  Cikis
+enum MovementDirection {
+  IN
+  OUT
 }
 
 enum CurrentMovementType {
-  Borc
-  Alacak
+  DEBIT
+  CREDIT
 }
 
 enum CurrentMovementDocumentType {
-  Devir
-  Fatura
-  IadeFatura
-  Kasa
-  MusteriSeneti
-  BorcSeneti
-  MusteriCeki
-  BorcCeki
-  KarsiliksizCek
-  Muhtelif
+  TRANSFER
+  INVOICE
+  RETURN_INVOICE
+  CASH
+  CUSTOMER_PROMISSORY_NOTE
+  DEBT_PROMISSORY_NOTE
+  CUSTOMER_CHECK
+  DEBT_CHECK
+  BOUNCED_CHECK
+  MISCELLANEOUS
 }
 
-enum CurrentPaymentType {
-  CokluOdeme
-  Kasa
+enum PaymentType {
+  MULTIPLE_PAYMENT
+  CASH
   POS
-  Banka
-  Cek
-  Senet
-  Diger
+  BANK
+  CHECK
+  PROMISSORY_NOTE
+  OTHER
 }
 
-enum ReceiptType {
-  Devir
-  Sayim
-  Nakil
-  Giris
-  Cikis
-  Fire
-}
-
-enum StockUnits {
-  Adet
-  Kg
-  Lt
-  M
-  M2
-  M3
-  Paket
-  Kutu
-  Koli
-  Ton
-  Dolar
-  Euro
-  TL
+enum StockUnit {
+  PIECE
+  KG
+  LITER
+  METER
+  SQUARE_METER
+  CUBIC_METER
+  PACKAGE
+  BOX
+  CARTON
+  TON
+  USD
+  EUR
+  TRY
 }
 
 enum ProductType {
-  BasitUrun
-  VaryasyonluUrun
-  DijitalUrun
-  Hizmet
-  VaryasyonUrun
+  SIMPLE_PRODUCT
+  VARIABLE_PRODUCT
+  DIGITAL_PRODUCT
+  SERVICE
+  VARIATION_PRODUCT
 }
 
 enum InstitutionType {
-  Sirket
-  Sahis
+  COMPANY
+  INDIVIDUAL
 }
 
 enum CurrentType {
-  AliciSatici
-  Alici
-  Satici
-  Personel
-  SanalPazar
-  Kurum
-  AnaGrupSirketi
-  Ithalat
-  Ihracat
-  IthalatIhracat
-  Musteri
-  Tedarikci
-  Diger
+  BUYER_SELLER
+  BUYER
+  SELLER
+  EMPLOYEE
+  MARKETPLACE
+  INSTITUTION
+  PARENT_COMPANY
+  IMPORT
+  EXPORT
+  IMPORT_EXPORT
+  CUSTOMER
+  SUPPLIER
+  OTHER
 }
 
 enum VaultDirection {
-  Introduction
-  Exit
-  ReceivedVirement
+  IN
+  OUT
+  TRANSFER_RECEIVED
 }
 
 enum VaultType {
-  DebtTransfer
-  ServiceChargeCollection
-  CompanyCreditCardWithdrawals
-  BuyingForeignCurrency
-  InputReceipt
-  BankWithdrawals
-  ReceivingValuableAssets
-  ReceivableTransfer
-  ServiceChargePayment
-  CompanyCreditCardDeposit
-  CurrencyExchange
-  LoanPayment
-  ExitReceipt
-  PaymentToBank
-  PreciousMetalExchange
-  LoanWithdrawal
-  ReceivedVirement
-  OutgoingVirement
-  InGoingVirement
-  POSWithdrawals
-  PurchaseInvoicePayment
-  SalesInvoicePayment
-  CashCollection
-  BankCollection
-  POSCollection
+  DEBT_TRANSFER
+  SERVICE_CHARGE_COLLECTION
+  COMPANY_CREDIT_CARD_WITHDRAWAL
+  FOREIGN_CURRENCY_PURCHASE
+  BANK_WITHDRAWAL
+  VALUABLE_ASSET_RECEIPT
+  RECEIVABLE_TRANSFER
+  SERVICE_CHARGE_PAYMENT
+  COMPANY_CREDIT_CARD_DEPOSIT
+  CURRENCY_EXCHANGE
+  LOAN_PAYMENT
+  BANK_PAYMENT
+  PRECIOUS_METAL_EXCHANGE
+  LOAN_WITHDRAWAL
+  TRANSFER_RECEIVED
+  TRANSFER_OUTGOING
+  TRANSFER_INCOMING
+  POS_WITHDRAWAL
+  PURCHASE_INVOICE_PAYMENT
+  SALES_INVOICE_PAYMENT
+  CASH_COLLECTION
+  BANK_COLLECTION
+  POS_COLLECTION
 }
 
 enum VaultDocumentType {
-  General
-  Accounting
-  Official
+  GENERAL
+  ACCOUNTING
+  OFFICIAL
 }
 
 enum StockTakeStatus {
-  Draft
-  InProgress
-  Completed
-  Cancelled
+  DRAFT
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
 }
 
 enum StockTakeType {
-  Full
-  Partial
-  Spot
-  Periodic
+  FULL
+  PARTIAL
+  SPOT
+  PERIODIC
 }
 
 enum OrderStatus {
   // Generic order statuses for all platforms
   PENDING
   CONFIRMED
+  AWAITING
+  CREATED
+  PICKING
+  INVOICED
   PROCESSING
   SHIPPED
   DELIVERED
+  UNDELIVERED
   CANCELLED
   RETURNED
   REFUNDED
+  REPACK
+  UNPACKED
+  UNSUPPLIED
+  AT_COLLECTION_POINT
 }
 
-enum MarketplacePlatform {
+enum PlatformType {
   TRENDYOL
   HEPSIBURADA
   SHOPIFY
   OTHER
 }
 
-// Legacy Trendyol enum kept for compatibility
-enum TrendyolOrderStatus {
-  Awaiting
-  Created
-  Picking
-  Invoiced
-  Shipped
-  Cancelled
-  Delivered
-  UnDelivered
-  Returned
-  Repack
-  UnPacked
-  UnSupplied
-  AtCollectionPoint
-}
-
-// Role model removed - now handled by core-persistence
-
-// Permission model removed - now handled by core-persistence
-
-// PermissionGroup model removed - now handled by core-persistence
-
 model StockCard {
   id                      String                    @id @default(cuid())
   organizationId          String                    @map("organization_id")
   productCode             String                    @db.VarChar(100)
   productName             String                    @db.VarChar(150)
-  unit                    StockUnits                @default(Adet)
+  unit                    StockUnit                 @default(PIECE)
   shortDescription        String?                   @db.VarChar(150)
   description             String?                   @db.Text
   // companyCode removed - using organizationId instead
   branchCode              String?                   @db.VarChar(50)
   modelCode               String?                   @db.VarChar(50)
   brandId                 String?                   @db.VarChar(100)
-  productType             ProductType               @default(BasitUrun)
+  productType             ProductType               @default(SIMPLE_PRODUCT)
   kdv                     Decimal?                  @db.Decimal(15, 4)
   gtip                    String?                   @db.VarChar(50)
   pluCode                 String?                   @db.VarChar(50)
   desi                    Decimal?                  @db.Decimal(15, 4)
-  adetBoleni              Decimal?                  @db.Decimal(15, 4)
-  siraNo                  String?                   @db.VarChar(50)
-  raf                     String?                   @db.VarChar(50)
-  karMarji                Decimal?                  @db.Decimal(15, 4)
-  riskQuantities          Decimal?                  @db.Decimal(15, 4)
-  maliyet                 Decimal?                  @db.Decimal(15, 4)
-  maliyetDoviz            String?                   @db.VarChar(3)
+  unitDivisor             Decimal?                  @db.Decimal(15, 4)
+  orderNumber             String?                   @db.VarChar(50)
+  shelf                   String?                   @db.VarChar(50)
+  profitMargin            Decimal?                  @db.Decimal(15, 4)
+  criticalStockLevel      Decimal?                  @db.Decimal(15, 4)
+  costPrice               Decimal?                  @db.Decimal(15, 4)
+  costCurrency            String?                   @db.VarChar(3)
   stockStatus             Boolean                   @default(true)
   hasExpirationDate       Boolean                   @default(false)
   allowNegativeStock      Boolean                   @default(false)
@@ -257,24 +232,20 @@ model StockCard {
   updatedAt               DateTime                  @updatedAt
   createdBy               String?
   updatedBy               String?
-  invoiceDetail           InvoiceDetail[]
-  receiptDetail           ReceiptDetail[]
-  branch                  Branch?                   @relation(fields: [branchCode], references: [branchCode])
+  invoiceItems            InvoiceItem[]
+  branch                  OrganizationBranch?       @relation(fields: [branchCode], references: [branchCode])
   brand                   Brand?                    @relation(fields: [brandId], references: [id])
-  // company relation removed - will be handled by organizationId reference to core-persistence
-  // User relations removed - will be handled by userId references to core-persistence
   stockCardAttributeItems StockCardAttributeItems[]
   barcodes                StockCardBarcode[]
   stockCardCategoryItem   StockCardCategoryItem[]
-  stockCardEFatura        StockCardEFatura?
+  stockCardElectronicInvoice        StockCardElectronicInvoice?
   stockCardManufacturer   StockCardManufacturer[]
   stockCardMarketNames    StockCardMarketNames[]
   stockCardPriceLists     StockCardPriceListItems[]
   taxRates                StockCardTaxRate[]
-  variations              StockCardVariation[]
   stockCardWarehouse      StockCardWarehouse[]
   stockMovement           StockMovement[]
-  Store                   Store[]                   @relation("StockCardToStore")
+  stores                  MerchantStore[]           @relation("StockCardToStore")
   ProductMatch            ProductMatch[]
   StockTakeDetail         StockTakeDetail[]
 
@@ -286,13 +257,13 @@ model StockCard {
   @@index([organizationId, productName])
   @@index([organizationId, brandId])
   @@index([organizationId, stockStatus])
-  @@index([organizationId, riskQuantities])
+  @@index([organizationId, criticalStockLevel])
   @@index([organizationId, createdAt])
-  @@index([organizationId, stockStatus, riskQuantities])
+  @@index([organizationId, stockStatus, criticalStockLevel])
   @@index([organizationId, brandId, stockStatus])
 }
 
-model StockCardEFatura {
+model StockCardElectronicInvoice {
   id          String    @id @default(cuid())
   organizationId String @map("organization_id")
   productCode String    @unique @db.VarChar(100)
@@ -302,6 +273,7 @@ model StockCardEFatura {
   updatedAt   DateTime  @updatedAt
   stockCard   StockCard @relation(fields: [stockCardId], references: [id])
 
+  @@index([organizationId])
   @@index([stockCardId])
 }
 
@@ -317,7 +289,7 @@ model StockCardManufacturer {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   brand       Brand?    @relation(fields: [brandId], references: [id])
-  current     Current   @relation(fields: [currentId], references: [id])
+  current             Current           @relation(fields: [currentId], references: [id])
   stockCard   StockCard @relation(fields: [stockCardId], references: [id])
 }
 
@@ -348,11 +320,11 @@ model StockCardPriceList {
   isActive                Boolean                   @default(true)
   current                 Current[]
   currentMovement         CurrentMovement[]
-  invoice                 Invoice[]
+  invoices                Invoice[]
   stockCardPriceListItems StockCardPriceListItems[]
   stockMovement           StockMovement[]
 
-  Store Store[]
+  stores MerchantStore[]
 
   @@unique([organizationId, priceListName], map: "uniq_price_list_name_per_org")
   @@index([organizationId])
@@ -369,7 +341,6 @@ model StockCardPriceListItems {
   vatRate            Decimal?             @db.Decimal(15, 4)
   priceList          StockCardPriceList   @relation(fields: [priceListId], references: [id], onDelete: Cascade)
   stockCard          StockCard            @relation(fields: [stockCardId], references: [id], onDelete: Cascade)
-  stockCardVariation StockCardVariation[] @relation("StockCardPriceListItemsToStockCardVariation")
 
   @@unique([organizationId, priceListId, stockCardId], map: "uniq_stock_price_list_item_per_org")
   @@index([organizationId])
@@ -382,7 +353,6 @@ model StockCardBarcode {
   stockCardId        String
   barcode            String               @db.VarChar(100)
   stockCard          StockCard            @relation(fields: [stockCardId], references: [id], onDelete: Cascade)
-  stockCardVariation StockCardVariation[] @relation("StockCardBarcodeToStockCardVariation")
 
   @@unique([organizationId, barcode], map: "uniq_stock_barcode_per_org")
   @@index([organizationId])
@@ -448,22 +418,6 @@ model StockCardAttributeItems {
   stockCard   StockCard          @relation(fields: [stockCardId], references: [id])
 }
 
-model StockCardVariation {
-  id                      String                    @id @default(cuid())
-  organizationId          String                    @map("organization_id")
-  stockCardId             String
-  variationName           String                    @db.VarChar(100)
-  variationCode           String                    @db.VarChar(100)
-  variationValue          String                    @db.VarChar(100)
-  stockCard               StockCard                 @relation(fields: [stockCardId], references: [id], onDelete: Cascade)
-  stockCardBarcode        StockCardBarcode[]        @relation("StockCardBarcodeToStockCardVariation")
-  stockCardPriceListItems StockCardPriceListItems[] @relation("StockCardPriceListItemsToStockCardVariation")
-
-  @@unique([organizationId, variationCode], map: "uniq_stock_variation_code_per_org")
-  @@index([organizationId])
-  @@index([organizationId, stockCardId])
-}
-
 model StockMovement {
   id               String              @id @default(cuid())
   organizationId   String              @map("organization_id")
@@ -473,9 +427,8 @@ model StockMovement {
   currentCode      String?
   documentType     DocumentType?
   invoiceType      InvoiceType?
-  movementType     StokManagementType
+  movementType     StockManagementType
   documentNo       String?
-  receiptNo        String?
   type             String?
   description      String?
   quantity         Decimal?            @db.Decimal(15, 4)
@@ -488,40 +441,30 @@ model StockMovement {
   createdBy        String?
   updatedAt        DateTime?           @updatedAt
   updatedBy        String?
-  gcCode           GCCode?
-  branch           Branch              @relation(fields: [branchCode], references: [branchCode])
-  // createdByUser removed - will be handled by userId reference to core-persistence
+  direction        MovementDirection?
+  branch           OrganizationBranch  @relation(fields: [branchCode], references: [branchCode])
   current          Current?            @relation(fields: [currentCode], references: [currentCode])
   invoice          Invoice?            @relation(fields: [documentNo], references: [invoiceNo])
-  receipt          Receipt?            @relation(fields: [receiptNo], references: [documentNo])
-  outWarehouse     Warehouse?          @relation("StockMovementOutWarehouse", fields: [outWarehouseCode], references: [warehouseCode])
+  outWarehouse     OrganizationWarehouse? @relation("StockMovementOutWarehouse", fields: [outWarehouseCode], references: [warehouseCode])
   priceList        StockCardPriceList? @relation(fields: [priceListId], references: [id])
   stockCard        StockCard           @relation(fields: [productCode], references: [productCode])
-  // updatedByUser removed - will be handled by userId reference to core-persistence
-  warehouse        Warehouse           @relation("StockMovementWarehouse", fields: [warehouseCode], references: [warehouseCode])
+  warehouse        OrganizationWarehouse @relation("StockMovementWarehouse", fields: [warehouseCode], references: [warehouseCode])
 
   // Performance indexes for Stock Movement Reports with organizationId
   @@index([organizationId])
   @@index([organizationId, productCode])
   @@index([organizationId, warehouseCode])
   @@index([organizationId, createdAt])
-  @@index([organizationId, gcCode])
+  @@index([organizationId, direction])
   @@index([organizationId, movementType])
   @@index([organizationId, productCode, createdAt])
   @@index([organizationId, warehouseCode, createdAt])
-  @@index([organizationId, productCode, gcCode])
-  @@index([organizationId, createdAt, gcCode])
-  // Legacy indexes (will be removed in future)
-  @@index([productCode])
-  @@index([warehouseCode])
-  @@index([createdAt])
-  @@index([gcCode])
-  @@index([movementType])
+  @@index([organizationId, productCode, direction])
+  @@index([organizationId, createdAt, direction])
+  // Legacy indexes removed - using organizationId-scoped indexes only
 }
 
-// Company model removed - now handled by core-persistence Organization model
-
-model Branch {
+model OrganizationBranch {
   id              String            @id @default(cuid())
   organizationId  String            @map("organization_id")
   branchName      String            @db.VarChar(100)
@@ -538,19 +481,16 @@ model Branch {
   updatedAt       DateTime          @updatedAt
   createdBy       String?
   updatedBy       String?
-  Bank            Bank[]
-  // company relation removed - will be handled by organizationId reference to core-persistence
-  // User relations removed - will be handled by userId references to core-persistence
+  bankAccounts    Bank[]
   warehouse       BranchWarehouse[]
   currentBranch   CurrentBranch[]
   currentMovement CurrentMovement[]
-  outInvoice      Invoice[]         @relation("InvoiceBranch")
-  invoice         Invoice[]         @relation("InvoiceOutBranch")
-  Pos             Pos[]
-  receipt         Receipt[]
+  outInvoices     Invoice[]         @relation("InvoiceBranch")
+  invoices        Invoice[]         @relation("InvoiceOutBranch")
+  paymentTerminals Pos[]
   stockCard       StockCard[]
   stockMovement   StockMovement[]
-  vault           Vault[]
+  cashVaults      Vault[]
   StockTake       StockTake[]
 
   @@unique([organizationId, branchName], map: "uniq_branch_name_per_org")
@@ -559,7 +499,7 @@ model Branch {
   @@index([organizationId])
 }
 
-model Warehouse {
+model OrganizationWarehouse {
   id                    String                  @id @default(cuid())
   organizationId        String                  @map("organization_id")
   warehouseName         String                  @db.VarChar(100)
@@ -576,18 +516,13 @@ model Warehouse {
   createdBy             String?
   updatedBy             String?
   branch                BranchWarehouse[]
-  invoice               Invoice[]
-  inReceipt             Receipt[]               @relation("ReceiptInWarehouse")
-  outReceipt            Receipt[]               @relation("ReceiptOutWarehouse")
+  invoices              Invoice[]
   stockCardWarehouse    StockCardWarehouse[]
   outMovements          StockMovement[]         @relation("StockMovementOutWarehouse")
   stockMovements        StockMovement[]         @relation("StockMovementWarehouse")
-  StockTake             StockTake[]
-  // OrderPrepareWarehouse relation removed - functionality deprecated
-  // company relation removed - will be handled by organizationId reference to core-persistence
-  // User relations removed - will be handled by userId references to core-persistence
+  stockAudits           StockTake[]
 
-  Store Store[]
+  stores MerchantStore[]
 
   @@unique([organizationId, warehouseName], map: "uniq_warehouse_name_per_org")
   @@unique([organizationId, warehouseCode], map: "uniq_warehouse_code_per_org")
@@ -600,8 +535,8 @@ model BranchWarehouse {
   organizationId String @map("organization_id")
   branchId    String
   warehouseId String
-  branch      Branch    @relation(fields: [branchId], references: [id], onDelete: Cascade)
-  warehouse   Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  branch      OrganizationBranch    @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  warehouse   OrganizationWarehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
 
   @@unique([organizationId, branchId, warehouseId], map: "uniq_branch_warehouse_per_org")
   @@index([organizationId])
@@ -614,7 +549,7 @@ model StockCardWarehouse {
   warehouseId String
   quantity    Decimal   @db.Decimal(15, 4)
   stockCard   StockCard @relation(fields: [stockCardId], references: [id], onDelete: Cascade)
-  warehouse   Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  warehouse   OrganizationWarehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
 
   @@unique([organizationId, stockCardId, warehouseId], map: "uniq_stock_warehouse_per_org")
   @@index([organizationId])
@@ -629,8 +564,8 @@ model StockTake {
   documentNo    String          @db.VarChar(50)
   warehouseId   String
   branchCode    String
-  stockTakeType StockTakeType   @default(Full)
-  status        StockTakeStatus @default(Draft)
+  stockTakeType StockTakeType   @default(FULL)
+  status        StockTakeStatus @default(DRAFT)
   description   String?
   reference     String?         @db.VarChar(100)
   startedAt     DateTime?
@@ -640,9 +575,8 @@ model StockTake {
   createdBy     String?
   updatedBy     String?
 
-  warehouse     Warehouse         @relation(fields: [warehouseId], references: [id])
-  branch        Branch            @relation(fields: [branchCode], references: [branchCode])
-  // User relations removed - will be handled by userId references to core-persistence
+  warehouse     OrganizationWarehouse         @relation(fields: [warehouseId], references: [id])
+  branch        OrganizationBranch            @relation(fields: [branchCode], references: [branchCode])
   details       StockTakeDetail[]
 
   @@unique([organizationId, documentNo], map: "uniq_stock_take_doc_per_org")
@@ -665,67 +599,13 @@ model StockTakeDetail {
   stockCard StockCard @relation(fields: [stockCardId], references: [id])
 }
 
-model Receipt {
-  id                  String           @id @default(cuid())
-  organizationId      String           @map("organization_id")
-  receiptType         ReceiptType
-  receiptDate         DateTime         @default(now())
-  documentNo          String           @db.VarChar(50)
-  branchCode          String           @db.VarChar(50)
-  isTransfer          Boolean          @default(false)
-  outWarehouse        String?
-  inWarehouse         String?
-  description         String?
-  createdBy           String?
-  updatedBy           String?
-  createdAt           DateTime         @default(now())
-  currentId           String?
-  currentMovementId   String?
-  current             Current?         @relation(fields: [currentId], references: [id])
-  currentMovement     CurrentMovement? @relation(fields: [currentMovementId], references: [id])
-  BankMovement        BankMovement[]
-  PosMovement         PosMovement[]
-  branch              Branch           @relation(fields: [branchCode], references: [branchCode])
-  // createdByUser removed - will be handled by userId reference to core-persistence
-  inReceiptWarehouse  Warehouse?       @relation("ReceiptInWarehouse", fields: [inWarehouse], references: [warehouseCode])
-  outReceiptWarehouse Warehouse?       @relation("ReceiptOutWarehouse", fields: [outWarehouse], references: [warehouseCode])
-  // updatedByUser removed - will be handled by userId reference to core-persistence
-  receiptDetail       ReceiptDetail[]
-  vaultMovement       VaultMovement[]
-
-  StockMovement StockMovement[]
-
-  @@unique([organizationId, documentNo], map: "uniq_receipt_doc_per_org")
-  @@unique([documentNo])
-  @@index([organizationId])
-  @@index([organizationId, receiptType])
-  @@index([organizationId, receiptDate])
-}
-
-model ReceiptDetail {
-  id          String    @id @default(cuid())
-  organizationId String @map("organization_id")
-  receiptId   String
-  stockCardId String
-  quantity    Decimal   @db.Decimal(15, 4)
-  unitPrice   Decimal   @db.Decimal(15, 4)
-  totalPrice  Decimal   @db.Decimal(15, 4)
-  vatRate     Decimal   @db.Decimal(15, 4)
-  discount    Decimal   @db.Decimal(15, 4)
-  netPrice    Decimal   @db.Decimal(15, 4)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  receipt     Receipt   @relation(fields: [receiptId], references: [id])
-  stockCard   StockCard @relation(fields: [stockCardId], references: [id])
-}
-
 model Current {
   id                    String                  @id @default(cuid())
   organizationId        String                  @map("organization_id")
   currentCode           String                  @db.VarChar(50)
   currentName           String                  @db.VarChar(100)
-  currentType           CurrentType             @default(AliciSatici)
-  institution           InstitutionType         @default(Sahis)
+  currentType           CurrentType             @default(BUYER_SELLER)
+  institution           InstitutionType         @default(INDIVIDUAL)
   identityNo            String?                 @db.VarChar(50)
   taxNumber             String?                 @db.VarChar(50)
   taxOffice             String?                 @db.VarChar(50)
@@ -733,18 +613,16 @@ model Current {
   name                  String?                 @db.VarChar(50)
   surname               String?                 @db.VarChar(50)
   webSite               String?                 @db.VarChar(100)
-  birthOfDate           DateTime?
-  kepAddress            String?                 @db.VarChar(50)
-  mersisNo              String?                 @db.VarChar(50)
-  sicilNo               String?                 @db.VarChar(50)
+  birthDate             DateTime?
+  registeredEmailAddress String?               @db.VarChar(50)
+  mersisNumber          String?                 @db.VarChar(50)
+  registryNumber        String?                 @db.VarChar(50)
   priceListId           String
   createdAt             DateTime                @default(now())
   updatedAt             DateTime                @updatedAt
   createdBy             String?
   updatedBy             String?
-  // User relations removed - will be handled by userId references to core-persistence
   priceList             StockCardPriceList      @relation(fields: [priceListId], references: [id])
-  // User relations removed - will be handled by userId references to core-persistence
   currentAddress        CurrentAddress[]
   currentBranch         CurrentBranch[]
   currentCategoryItem   CurrentCategoryItem[]
@@ -752,13 +630,11 @@ model Current {
   currentMovement       CurrentMovement[]
   currentOfficials      CurrentOfficials[]
   currentRisk           CurrentRisk?
-  invoice               Invoice[]
+  invoices              Invoice[]
   stockCardManufacturer StockCardManufacturer[]
   stockMovement         StockMovement[]
 
   // OrderPrepareWarehouse relation removed - functionality deprecated
-
-  Receipt Receipt[]
 
   @@unique([organizationId, currentCode], map: "uniq_current_code_per_org")
   @@unique([currentCode])
@@ -774,7 +650,7 @@ model CurrentBranch {
   branchCode  String   @db.VarChar(50)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  branch      Branch   @relation(fields: [branchCode], references: [branchCode])
+  branch      OrganizationBranch   @relation(fields: [branchCode], references: [branchCode])
   current     Current  @relation(fields: [currentCode], references: [currentCode])
 }
 
@@ -783,7 +659,7 @@ model CurrentAddress {
   organizationId String   @map("organization_id")
   currentCode String      @db.VarChar(50)
   addressName String      @db.VarChar(50)
-  addressType AddressType @default(Fatura)
+  addressType AddressType @default(INVOICE)
   address     String      @db.VarChar(250)
   countryCode String      @db.VarChar(3)
   city        String      @db.VarChar(50)
@@ -809,7 +685,7 @@ model CurrentFinancial {
   accountNo      Decimal? @db.Decimal(15, 4)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  current        Current  @relation(fields: [currentCode], references: [currentCode])
+  current                Current          @relation(fields: [currentCode], references: [currentCode])
 }
 
 model CurrentRisk {
@@ -817,20 +693,20 @@ model CurrentRisk {
   organizationId           String   @map("organization_id")
   currentCode              String   @unique @db.VarChar(50)
   currency                 String   @db.VarChar(3)
-  teminatYerelTutar        Decimal? @db.Decimal(15, 4)
-  acikHesapYerelLimit      Decimal? @db.Decimal(15, 4)
-  hesapKesimGunu           Int?
-  vadeGun                  Int?
-  gecikmeLimitGunu         Int?
-  varsayilanAlisIskontosu  Decimal? @db.Decimal(15, 4)
-  varsayilanSatisIskontosu Decimal? @db.Decimal(15, 4)
-  ekstreGonder             Boolean? @default(false)
-  limitKontrol             Boolean? @default(false)
-  acikHesap                Boolean? @default(false)
-  posKullanim              Boolean? @default(false)
+  collateralLocalAmount    Decimal? @db.Decimal(15, 4)
+  openAccountLocalLimit    Decimal? @db.Decimal(15, 4)
+  accountCutoffDay         Int?
+  paymentTermDays          Int?
+  delayLimitDays           Int?
+  defaultPurchaseDiscount  Decimal? @db.Decimal(15, 4)
+  defaultSalesDiscount     Decimal? @db.Decimal(15, 4)
+  sendStatement            Boolean? @default(false)
+  limitControl             Boolean? @default(false)
+  openAccount              Boolean? @default(false)
+  posUsage                 Boolean? @default(false)
   createdAt                DateTime @default(now())
   updatedAt                DateTime @updatedAt
-  current                  Current  @relation(fields: [currentCode], references: [currentCode])
+  current                  Current          @relation(fields: [currentCode], references: [currentCode])
 }
 
 model CurrentOfficials {
@@ -866,12 +742,12 @@ model CurrentMovement {
   updatedAt          DateTime                     @updatedAt
   createdBy          String?
   updatedBy          String?
-  paymentType        CurrentPaymentType?
-  branch             Branch                       @relation(fields: [branchCode], references: [branchCode])
+  paymentType        PaymentType?
+  branch             OrganizationBranch           @relation(fields: [branchCode], references: [branchCode])
   // company relation removed - will be handled by organizationId reference to core-persistence
   // createdByUser removed - will be handled by userId reference to core-persistence
   current            Current?                     @relation(fields: [currentCode], references: [currentCode])
-  invoice            Invoice?                     @relation(fields: [documentNo], references: [invoiceNo])
+  invoice       Invoice?                @relation(fields: [documentNo], references: [invoiceNo])
   stockCardPriceList StockCardPriceList?          @relation(fields: [priceListId], references: [id])
   // updatedByUser removed - will be handled by userId reference to core-persistence
 
@@ -879,7 +755,6 @@ model CurrentMovement {
   BankMovement          BankMovement[]
   PosMovement           PosMovement[]
   // OrderPrepareWarehouse relation removed - functionality deprecated
-  Receipt               Receipt[]
 }
 
 model CurrentCategory {
@@ -888,8 +763,8 @@ model CurrentCategory {
   categoryName     String                @db.VarChar(100)
   categoryCode     String                @db.VarChar(100)
   parentCategoryId String?
-  parentCategory   CurrentCategory?      @relation("CategoryHierarchy", fields: [parentCategoryId], references: [id])
-  childCategories  CurrentCategory[]     @relation("CategoryHierarchy")
+  parentCategory   CurrentCategory?              @relation("CategoryHierarchy", fields: [parentCategoryId], references: [id])
+  childCategories  CurrentCategory[]             @relation("CategoryHierarchy")
   categoryItems    CurrentCategoryItem[]
 
   @@unique([organizationId, categoryCode], map: "uniq_current_category_code_per_org")
@@ -902,8 +777,8 @@ model CurrentCategoryItem {
   organizationId String       @map("organization_id")
   currentCode String          @db.VarChar(50)
   categoryId  String
-  category    CurrentCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  current     Current         @relation(fields: [currentCode], references: [currentCode], onDelete: Cascade)
+  category    CurrentCategory         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  current             Current                 @relation(fields: [currentCode], references: [currentCode], onDelete: Cascade)
 }
 
 // User model removed - now handled by core-persistence
@@ -925,8 +800,8 @@ model Invoice {
   outBranchCode     String?
   warehouseCode     String
   description       String?
-  genelIskontoTutar Decimal?            @db.Decimal(15, 4)
-  genelIskontoOran  Decimal?            @db.Decimal(15, 4)
+  generalDiscountAmount Decimal?        @db.Decimal(15, 4)
+  generalDiscountRate Decimal?          @db.Decimal(15, 4)
   paymentDate       DateTime?
   paymentDay        Int?
   priceListId       String?
@@ -942,21 +817,21 @@ model Invoice {
   canceledAt        DateTime?
   createdBy         String?
   updatedBy         String?
-  BankMovement      BankMovement[]
-  currentMovement   CurrentMovement[]
-  order             Order?              @relation(fields: [orderId], references: [id])
-  branch            Branch              @relation("InvoiceBranch", fields: [branchCode], references: [branchCode])
+  bankMovements     BankMovement[]
+  partnerMovements  CurrentMovement[]
+  order             MarketplaceOrder?   @relation(fields: [orderId], references: [id])
+  branch            OrganizationBranch  @relation("InvoiceBranch", fields: [branchCode], references: [branchCode])
   // company relation removed - will be handled by organizationId reference to core-persistence
   // createdByUser removed - will be handled by userId reference to core-persistence
   current           Current?            @relation(fields: [currentCode], references: [currentCode])
-  outBranch         Branch?             @relation("InvoiceOutBranch", fields: [outBranchCode], references: [branchCode])
+  outBranch         OrganizationBranch? @relation("InvoiceOutBranch", fields: [outBranchCode], references: [branchCode])
   priceList         StockCardPriceList? @relation(fields: [priceListId], references: [id])
   // updatedByUser removed - will be handled by userId reference to core-persistence
-  warehouse         Warehouse           @relation(fields: [warehouseCode], references: [warehouseCode])
-  invoiceDetail     InvoiceDetail[]
-  PosMovement       PosMovement[]
+  warehouse         OrganizationWarehouse           @relation(fields: [warehouseCode], references: [warehouseCode])
+  invoiceItems      InvoiceItem[]
+  terminalMovements PosMovement[]
   stockMovement     StockMovement[]
-  vaultMovement     VaultMovement[]
+  vaultMovements    VaultMovement[]
 
   @@unique([organizationId, invoiceNo], map: "uniq_invoice_no_per_org")
   @@unique([invoiceNo])
@@ -966,7 +841,7 @@ model Invoice {
   @@index([organizationId, currentCode])
 }
 
-model InvoiceDetail {
+model InvoiceItem {
   id          String     @id @default(cuid())
   organizationId String  @map("organization_id")
   invoiceId   String
@@ -982,7 +857,7 @@ model InvoiceDetail {
   netPrice    Decimal?   @db.Decimal(15, 4)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
-  invoice     Invoice    @relation(fields: [invoiceId], references: [id])
+  invoice          Invoice         @relation(fields: [invoiceId], references: [id])
   stockCard   StockCard? @relation(fields: [productCode], references: [productCode])
 }
 
@@ -995,9 +870,8 @@ model Vault {
   currency      String
   createdBy     String?
   updatedBy     String?
-  branch        Branch          @relation(fields: [branchCode], references: [branchCode])
-  // User relations removed - will be handled by userId references to core-persistence
-  vaultMovement VaultMovement[]
+  branch        OrganizationBranch          @relation(fields: [branchCode], references: [branchCode])
+  vaultMovements VaultMovement[]
 }
 
 model VaultMovement {
@@ -1005,7 +879,6 @@ model VaultMovement {
   organizationId    String            @map("organization_id")
   vaultId           String
   invoiceId         String?
-  receiptId         String?
   description       String
   entering          Decimal           @db.Decimal(15, 2)
   emerging          Decimal           @db.Decimal(15, 2)
@@ -1016,12 +889,11 @@ model VaultMovement {
   updatedBy         String?
   // createdByUser removed - will be handled by userId reference to core-persistence
   invoice           Invoice?          @relation(fields: [invoiceId], references: [id])
-  receipt           Receipt?          @relation(fields: [receiptId], references: [id])
   // updatedByUser removed - will be handled by userId reference to core-persistence
   vault             Vault             @relation(fields: [vaultId], references: [id])
 
   currentMovementId String?
-  currentMovement   CurrentMovement? @relation(fields: [currentMovementId], references: [id])
+  partnerMovement   CurrentMovement? @relation(fields: [currentMovementId], references: [id])
 }
 
 model Bank {
@@ -1033,9 +905,8 @@ model Bank {
   currency      String
   createdBy     String?
   updatedBy     String?
-  branch        Branch         @relation(fields: [branchCode], references: [branchCode])
-  // User relations removed - will be handled by userId references to core-persistence
-  bankMovement  BankMovement[]
+  branch        OrganizationBranch         @relation(fields: [branchCode], references: [branchCode])
+  accountMovements BankMovement[]
 }
 
 model BankMovement {
@@ -1043,7 +914,6 @@ model BankMovement {
   organizationId    String            @map("organization_id")
   bankId            String
   invoiceId         String?
-  receiptId         String?
   description       String
   entering          Decimal           @db.Decimal(15, 2)
   emerging          Decimal           @db.Decimal(15, 2)
@@ -1054,11 +924,8 @@ model BankMovement {
   createdBy         String?
   updatedBy         String?
   bank              Bank              @relation(fields: [bankId], references: [id])
-  // createdByUser removed - will be handled by userId reference to core-persistence
   invoice           Invoice?          @relation(fields: [invoiceId], references: [id])
-  receipt           Receipt?          @relation(fields: [receiptId], references: [id])
-  // updatedByUser removed - will be handled by userId reference to core-persistence
-  currentMovement   CurrentMovement?  @relation(fields: [currentMovementId], references: [id])
+  currentMovement   CurrentMovement?          @relation(fields: [currentMovementId], references: [id])
 }
 
 model Pos {
@@ -1070,9 +937,9 @@ model Pos {
   currency      String
   createdBy     String?
   updatedBy     String?
-  branch        Branch        @relation(fields: [branchCode], references: [branchCode])
+  branch        OrganizationBranch        @relation(fields: [branchCode], references: [branchCode])
   // User relations removed - will be handled by userId references to core-persistence
-  posMovement   PosMovement[]
+  terminalMovements PosMovement[]
 }
 
 model PosMovement {
@@ -1080,7 +947,6 @@ model PosMovement {
   organizationId    String            @map("organization_id")
   posId             String
   invoiceId         String?
-  receiptId         String?
   description       String
   entering          Decimal           @db.Decimal(15, 2)
   emerging          Decimal           @db.Decimal(15, 2)
@@ -1093,18 +959,17 @@ model PosMovement {
   // createdByUser removed - will be handled by userId reference to core-persistence
   invoice           Invoice?          @relation(fields: [invoiceId], references: [id])
   pos               Pos               @relation(fields: [posId], references: [id])
-  receipt           Receipt?          @relation(fields: [receiptId], references: [id])
   // updatedByUser removed - will be handled by userId reference to core-persistence
-  currentMovement   CurrentMovement?  @relation(fields: [currentMovementId], references: [id])
+  currentMovement   CurrentMovement?          @relation(fields: [currentMovementId], references: [id])
 }
 
-model Order {
+model MarketplaceOrder {
   id                         String                       @id @default(cuid())
   organizationId             String                       @map("organization_id")
   platformOrderId            String
   platform                   String // "TRENDYOL", "HEPSIBURADA", "SHOPIFY"
   customerId                 String
-  status                     TrendyolOrderStatus // Kept original enum to prevent data loss
+  status                     OrderStatus         @default(PENDING) // Migrated from TrendyolOrderStatus
   currency                   String @default("TRY")
   orderDate                  DateTime
   totalPrice                 Decimal @db.Decimal(18, 2) // Changed from Float to Decimal for precision
@@ -1132,27 +997,27 @@ model Order {
   microRegion                String?
   estimatedDeliveryStart     DateTime?
   estimatedDeliveryEnd       DateTime?
-  agreedDeliveryDate         DateTime? // Ürüne belirtilmiş termin süresinden hesaplanan kargoya verilme son tarihi
+  agreedDeliveryDate         DateTime? // Product delivery deadline calculated from specified term
   extendedDeliveryDate       DateTime? // Ek süre sonrası yeni tarih
-  isCommercial               Boolean?                     @default(false) // Kurumsal fatura bilgisi
+  isCommercial               Boolean?                     @default(false) // Corporate invoice information
   giftBoxRequested           Boolean?                     @default(false) // Hediye paketi talebi
   etgbNo                     String? // Mikro ihracat için ETGB numarası
   etgbDate                   DateTime? // Mikro ihracat için ETGB tarihi
-  containsDangerousProduct   Boolean?                     @default(false) // Tehlikeli ürün bilgisi
+  containsDangerousProduct   Boolean?                     @default(false) // Dangerous product information
   deliveredByService         Boolean?                     @default(false) // Yetkili servis ile gönderim
   originShipmentDate         DateTime? // Siparişin satıcıya aktarılma tarihi
   lastModifiedDate           DateTime? // Sipariş paket statüsünün son güncellenme tarihi
 
   // Platform specific data stored as JSON for future flexibility
   platformData               Json? // Additional platform-specific fields (Hepsiburada, Shopify specific data)
-  billingAddress             OrderInvoiceAddress?         @relation("BillingAddress", fields: [billingAddressId], references: [id])
-  shippingAddress            OrderInvoiceAddress?         @relation("ShippingAddress", fields: [shippingAddressId], references: [id])
-  store                      Store                        @relation(fields: [storeId], references: [id])
-  cargos                     OrderCargo[]
-  items                      OrderItem[]
-  orderInvoiceAddress        OrderInvoiceAddress[]
-  TrendyolOrderStatusHistory TrendyolOrderStatusHistory[]
-  Invoice                    Invoice[]
+  billingAddress             MarketplaceOrderAddress?     @relation("BillingAddress", fields: [billingAddressId], references: [id])
+  shippingAddress            MarketplaceOrderAddress?     @relation("ShippingAddress", fields: [shippingAddressId], references: [id])
+  store                      MerchantStore                @relation(fields: [storeId], references: [id])
+  cargos                     MarketplaceOrderCargo[]
+  items                      MarketplaceOrderItem[]
+  addresses                  MarketplaceOrderAddress[]
+  statusHistory              MarketplaceOrderStatusHistory[]
+  invoices                   Invoice[]
 
   @@unique([organizationId, platformOrderId, platform], map: "uniq_order_platform_id_per_org")
   @@index([organizationId])
@@ -1163,8 +1028,8 @@ model Order {
   @@index([organizationId, storeId])
 }
 
-model OrderInvoiceAddress {
-  id             String   @id @default(uuid())
+model MarketplaceOrderAddress {
+  id             String   @id @default(cuid())
   organizationId String   @map("organization_id")
   orderId        String
   address        String
@@ -1178,19 +1043,19 @@ model OrderInvoiceAddress {
   updatedAt      DateTime @updatedAt
   paymentMethod  String?
   transactionId  String?
-  company        String? // Kurumsal fatura bilgileri
+  company        String? // Corporate billing information
   taxNumber      String? // Vergi numarası
   taxOffice      String? // Vergi dairesi
   latitude       String? // Konum bilgisi
   longitude      String? // Konum bilgisi
   neighborhood   String? // Mahalle bilgisi
   phone          String? // Telefon bilgisi
-  billingOrders  Order[]  @relation("BillingAddress")
-  shippingOrders Order[]  @relation("ShippingAddress")
-  order          Order    @relation(fields: [orderId], references: [id])
+  billingOrders  MarketplaceOrder[]  @relation("BillingAddress")
+  shippingOrders MarketplaceOrder[]  @relation("ShippingAddress")
+  order          MarketplaceOrder    @relation(fields: [orderId], references: [id])
 }
 
-model OrderCargo {
+model MarketplaceOrderCargo {
   id             String    @id @default(uuid())
   organizationId String    @map("organization_id")
   name           String
@@ -1201,10 +1066,10 @@ model OrderCargo {
   deliveryNote   String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
-  order          Order     @relation(fields: [orderId], references: [id])
+  order          MarketplaceOrder     @relation(fields: [orderId], references: [id])
 }
 
-model OrderItem {
+model MarketplaceOrderItem {
   id                      String   @id @default(cuid())
   organizationId          String   @map("organization_id")
   orderId                 String
@@ -1231,12 +1096,12 @@ model OrderItem {
 
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
-  order               Order                @relation(fields: [orderId], references: [id])
-  marketPlaceProducts MarketPlaceProducts? @relation(fields: [barcode], references: [barcode])
-  discountDetails     OrderItemDiscount[]
+  order               MarketplaceOrder     @relation(fields: [orderId], references: [id])
+  marketplaceProduct  MarketplaceProduct?  @relation(fields: [barcode], references: [barcode])
+  discountDetails     MarketplaceOrderItemDiscount[]
 }
 
-model OrderItemDiscount {
+model MarketplaceOrderItemDiscount {
   id                 String   @id @default(cuid())
   organizationId     String   @map("organization_id")
   orderItemId        String
@@ -1246,25 +1111,28 @@ model OrderItemDiscount {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
-  orderItem OrderItem @relation(fields: [orderItemId], references: [id])
+  orderItem MarketplaceOrderItem @relation(fields: [orderItemId], references: [id])
 }
 
-model TrendyolOrderStatusHistory {
-  id             String              @id @default(cuid())
-  organizationId String              @map("organization_id")
+model MarketplaceOrderStatusHistory {
+  id             String      @id @default(cuid())
+  organizationId String      @map("organization_id")
   orderId        String
-  previousStatus TrendyolOrderStatus
-  newStatus      TrendyolOrderStatus
+  previousStatus OrderStatus
+  newStatus      OrderStatus
   note           String?
-  createdAt      DateTime            @default(now())
-  updatedAt      DateTime            @updatedAt
-  order          Order               @relation(fields: [orderId], references: [id])
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  order          MarketplaceOrder       @relation(fields: [orderId], references: [id])
+
+  @@index([organizationId, orderId])
+  @@map("order_status_histories")
 }
 
 model MarketplaceWebhookLog {
   id             String              @id @default(cuid())
   organizationId String              @map("organization_id")
-  platform       MarketplacePlatform
+  platform       PlatformType
   storeId        String
   eventType      String
   status         String              @default("PENDING") // PENDING, PROCESSED, FAILED
@@ -1275,35 +1143,20 @@ model MarketplaceWebhookLog {
   createdAt      DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
 
-  store Store @relation(fields: [storeId], references: [id])
+  store MerchantStore @relation(fields: [storeId], references: [id])
 
   @@index([organizationId, platform])
   @@index([organizationId, status])
   @@index([organizationId, createdAt])
 }
 
-// Legacy model for backward compatibility
-model TrendyolWebhookLog {
-  id           String    @id @default(cuid())
-  organizationId String  @map("organization_id")
-  orderNumber  String?
-  storeId      String
-  eventType    String
-  status       String    @default("PENDING") // PENDING, PROCESSED, FAILED
-  payload      String // JSON veri
-  errorMessage String?
-  processedAt  DateTime?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+// Legacy TrendyolWebhookLog removed - use MarketplaceWebhookLog instead
 
-  store Store @relation(fields: [storeId], references: [id])
-}
-
-model MarketPlace {
+model MarketplacePlatform {
   id                    String                  @id @default(cuid())
   organizationId        String                  @map("organization_id")
   name                  String
-  platform              MarketplacePlatform     @default(OTHER)
+  platform              PlatformType            @default(OTHER)
   apiBaseUrl            String
   logoUrl               String?
   // companyCode removed - using organizationId instead
@@ -1311,15 +1164,15 @@ model MarketPlace {
   updatedBy             String?
   // company relation removed - will be handled by organizationId reference to core-persistence
   // User relations removed - will be handled by userId references to core-persistence
-  MarketPlaceAttributes MarketPlaceAttributes[]
-  Store                 Store[]
+  attributes            MarketplaceAttribute[]
+  stores                MerchantStore[]
 
   @@unique([organizationId, name], map: "uniq_marketplace_name_per_org")
   @@index([organizationId])
   @@index([organizationId, platform])
 }
 
-model Store {
+model MerchantStore {
   id                  String                @id @default(cuid())
   organizationId      String                @map("organization_id")
   name                String
@@ -1330,43 +1183,42 @@ model Store {
   storeUrl            String?
   createdBy           String?
   updatedBy           String?
-  MarketPlaceProducts MarketPlaceProducts[]
+  products            MarketplaceProduct[]
   priceListId         String?
   priceList           StockCardPriceList?   @relation(fields: [priceListId], references: [id])
-  order               Order[]
+  orders              MarketplaceOrder[]
   // createdByUser removed - will be handled by userId reference to core-persistence
-  marketPlace         MarketPlace           @relation(fields: [marketPlaceId], references: [id])
+  platform            MarketplacePlatform   @relation(fields: [marketPlaceId], references: [id])
   // updatedByUser removed - will be handled by userId reference to core-persistence
   stockcard           StockCard[]           @relation("StockCardToStore")
-  warehouse           Warehouse?            @relation(fields: [warehouseCode], references: [warehouseCode])
+  warehouse           OrganizationWarehouse? @relation(fields: [warehouseCode], references: [warehouseCode])
 
   // Webhook logs
   marketplaceWebhookLogs MarketplaceWebhookLog[]
-  TrendyolWebhookLog     TrendyolWebhookLog[] // Legacy support
 }
 
-model MarketPlaceCategories {
+model MarketplaceCategory {
   id                          String                @id @default(cuid())
   organizationId              String                @map("organization_id")
   categoryName                String?
   marketPlaceCategoryId       String?
   marketPlaceCategoryParentId String?
-  products                    MarketPlaceProducts[] @relation("ProductsOnCategories")
+  products                    MarketplaceProduct[]  @relation("ProductsOnCategories")
 
-  // Alt ve üst kategori ilişkileri
-  subCategories  MarketPlaceCategories[] @relation("CategoryParent")
-  parentCategory MarketPlaceCategories?  @relation("CategoryParent", fields: [marketPlaceCategoryParentId], references: [id])
+  // Parent and child category relationships
+  subCategories  MarketplaceCategory[]   @relation("CategoryParent")
+  parentCategory MarketplaceCategory?    @relation("CategoryParent", fields: [marketPlaceCategoryParentId], references: [id])
 }
 
-model MarketPlaceBrands {
+model MarketplaceBrand {
   id                  String                @id @default(cuid())
   organizationId      String                @map("organization_id")
   marketPlaceBrandId  String?
   brandName           String?
-  MarketPlaceProducts MarketPlaceProducts[]
+  products            MarketplaceProduct[]
 }
 
-model MarketPlaceAttributes {
+model MarketplaceAttribute {
   id                      String                @id @default(cuid())
   organizationId          String                @map("organization_id")
   marketPlaceId           String?
@@ -1377,19 +1229,19 @@ model MarketPlaceAttributes {
   valueMarketPlaceId      String?
   required                Boolean?
   allowCustom             Boolean?
-  marketPlace             MarketPlace?          @relation(fields: [marketPlaceId], references: [id], onDelete: Cascade)
-  MarketPlaceProducts     MarketPlaceProducts[] @relation("MarketPlaceAttributesToMarketPlaceProducts")
+  platform                MarketplacePlatform?  @relation(fields: [marketPlaceId], references: [id], onDelete: Cascade)
+  products                MarketplaceProduct[]  @relation("MarketplaceAttributesToMarketplaceProducts")
 }
 
-model MarketPlaceProductImages {
+model MarketplaceProductImage {
   id                   String               @id @default(cuid())
   organizationId       String               @map("organization_id")
   imageUrl             String?
   marketPlaceProductId String?
-  marketPlaceProducts  MarketPlaceProducts? @relation(fields: [marketPlaceProductId], references: [id], onDelete: Cascade)
+  product              MarketplaceProduct?  @relation(fields: [marketPlaceProductId], references: [id], onDelete: Cascade)
 }
 
-model MarketPlaceProducts {
+model MarketplaceProduct {
   id                       String                     @id @default(cuid())
   organizationId           String                     @map("organization_id")
   productName              String?
@@ -1411,15 +1263,15 @@ model MarketPlaceProducts {
   isActive                 Boolean                    @default(true)
   createdAt                DateTime                   @default(now())
   updatedAt                DateTime                   @updatedAt
-  MarketPlaceProductImages MarketPlaceProductImages[]
-  marketPlaceBrands        MarketPlaceBrands?         @relation(fields: [marketPlaceBrandsId], references: [id])
-  parentProduct            MarketPlaceProducts?       @relation("ParentChildRelation", fields: [parentProductId], references: [id])
-  childrenProducts         MarketPlaceProducts[]      @relation("ParentChildRelation")
-  store                    Store?                     @relation(fields: [storeId], references: [id])
-  marketPlaceAttributes    MarketPlaceAttributes[]    @relation("MarketPlaceAttributesToMarketPlaceProducts")
-  MarketPlaceCategories    MarketPlaceCategories[]    @relation("ProductsOnCategories")
+  images                   MarketplaceProductImage[]
+  brand                    MarketplaceBrand?          @relation(fields: [marketPlaceBrandsId], references: [id])
+  parentProduct            MarketplaceProduct?        @relation("ParentChildRelation", fields: [parentProductId], references: [id])
+  childrenProducts         MarketplaceProduct[]       @relation("ParentChildRelation")
+  store                    MerchantStore?             @relation(fields: [storeId], references: [id])
+  attributes               MarketplaceAttribute[]     @relation("MarketplaceAttributesToMarketplaceProducts")
+  categories               MarketplaceCategory[]      @relation("ProductsOnCategories")
 
-  OrderItem OrderItem[]
+  orderItems MarketplaceOrderItem[]
 
   @@unique([organizationId, barcode], map: "uniq_marketplace_product_barcode_per_org")
   @@unique([barcode])
@@ -1478,8 +1330,6 @@ model RequestResponses {
   sentRequest SentRequests? @relation(fields: [sentRequestId], references: [id])
 }
 
-// OrderPrepareWarehouse model removed - order preparation functionality deprecated
-
 model PrintQueue {
   id            String    @id @default(cuid())
   organizationId String   @map("organization_id")
@@ -1500,5 +1350,3 @@ model PrintQueue {
   @@index([organizationId, status])
   @@index([status])
 }
-
-// SecurityLog model removed - now handled by core-persistence
