@@ -476,7 +476,6 @@ model OrganizationBranch {
   phone           String            @db.VarChar(50)
   email           String            @db.VarChar(100)
   website         String            @db.VarChar(100)
-  // companyCode removed - using organizationId instead
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   createdBy       String?
@@ -510,7 +509,6 @@ model OrganizationWarehouse {
   district              String                  @db.VarChar(50)
   phone                 String                  @db.VarChar(50)
   email                 String                  @db.VarChar(100)
-  // companyCode removed - using organizationId instead
   createdAt             DateTime                @default(now())
   updatedAt             DateTime                @updatedAt
   createdBy             String?
@@ -736,25 +734,21 @@ model CurrentMovement {
   movementType       CurrentMovementType
   documentType       CurrentMovementDocumentType?
   documentNo         String?
-  // companyCode removed - using organizationId instead
   branchCode         String
   createdAt          DateTime                     @default(now())
   updatedAt          DateTime                     @updatedAt
   createdBy          String?
   updatedBy          String?
   paymentType        PaymentType?
-  branch             OrganizationBranch           @relation(fields: [branchCode], references: [branchCode])
-  // company relation removed - will be handled by organizationId reference to core-persistence
-  // createdByUser removed - will be handled by userId reference to core-persistence
-  current            Current?                     @relation(fields: [currentCode], references: [currentCode])
-  invoice       Invoice?                @relation(fields: [documentNo], references: [invoiceNo])
-  stockCardPriceList StockCardPriceList?          @relation(fields: [priceListId], references: [id])
-  // updatedByUser removed - will be handled by userId reference to core-persistence
 
+  branch             OrganizationBranch           @relation(fields: [branchCode], references: [branchCode])
+  current            Current?                     @relation(fields: [currentCode], references: [currentCode])
+  invoice            Invoice?                     @relation(fields: [documentNo], references: [invoiceNo])
+  stockCardPriceList StockCardPriceList?          @relation(fields: [priceListId], references: [id])
+  
   VaultMovement         VaultMovement[]
   BankMovement          BankMovement[]
   PosMovement           PosMovement[]
-  // OrderPrepareWarehouse relation removed - functionality deprecated
 }
 
 model CurrentCategory {
@@ -781,10 +775,6 @@ model CurrentCategoryItem {
   current             Current                 @relation(fields: [currentCode], references: [currentCode], onDelete: Cascade)
 }
 
-// User model removed - now handled by core-persistence
-
-// Session model removed - now handled by core-persistence
-
 model Invoice {
   id                String              @id @default(cuid())
   organizationId    String              @map("organization_id")
@@ -795,7 +785,6 @@ model Invoice {
   invoiceType       InvoiceType?
   documentType      DocumentType?
   currentCode       String?
-  // companyCode removed - using organizationId instead
   branchCode        String
   outBranchCode     String?
   warehouseCode     String
@@ -817,17 +806,16 @@ model Invoice {
   canceledAt        DateTime?
   createdBy         String?
   updatedBy         String?
-  bankMovements     BankMovement[]
-  partnerMovements  CurrentMovement[]
+
   order             MarketplaceOrder?   @relation(fields: [orderId], references: [id])
   branch            OrganizationBranch  @relation("InvoiceBranch", fields: [branchCode], references: [branchCode])
-  // company relation removed - will be handled by organizationId reference to core-persistence
-  // createdByUser removed - will be handled by userId reference to core-persistence
   current           Current?            @relation(fields: [currentCode], references: [currentCode])
   outBranch         OrganizationBranch? @relation("InvoiceOutBranch", fields: [outBranchCode], references: [branchCode])
   priceList         StockCardPriceList? @relation(fields: [priceListId], references: [id])
-  // updatedByUser removed - will be handled by userId reference to core-persistence
   warehouse         OrganizationWarehouse           @relation(fields: [warehouseCode], references: [warehouseCode])
+  
+  bankMovements     BankMovement[]
+  partnerMovements  CurrentMovement[]
   invoiceItems      InvoiceItem[]
   terminalMovements PosMovement[]
   stockMovement     StockMovement[]
@@ -887,9 +875,7 @@ model VaultMovement {
   vaultDocumentType VaultDocumentType
   createdBy         String?
   updatedBy         String?
-  // createdByUser removed - will be handled by userId reference to core-persistence
   invoice           Invoice?          @relation(fields: [invoiceId], references: [id])
-  // updatedByUser removed - will be handled by userId reference to core-persistence
   vault             Vault             @relation(fields: [vaultId], references: [id])
 
   currentMovementId String?
@@ -938,7 +924,6 @@ model Pos {
   createdBy     String?
   updatedBy     String?
   branch        OrganizationBranch        @relation(fields: [branchCode], references: [branchCode])
-  // User relations removed - will be handled by userId references to core-persistence
   terminalMovements PosMovement[]
 }
 
@@ -956,10 +941,8 @@ model PosMovement {
   currentMovementId String?
   createdBy         String?
   updatedBy         String?
-  // createdByUser removed - will be handled by userId reference to core-persistence
   invoice           Invoice?          @relation(fields: [invoiceId], references: [id])
   pos               Pos               @relation(fields: [posId], references: [id])
-  // updatedByUser removed - will be handled by userId reference to core-persistence
   currentMovement   CurrentMovement?          @relation(fields: [currentMovementId], references: [id])
 }
 
@@ -1162,8 +1145,6 @@ model MarketplacePlatform {
   // companyCode removed - using organizationId instead
   createdBy             String?
   updatedBy             String?
-  // company relation removed - will be handled by organizationId reference to core-persistence
-  // User relations removed - will be handled by userId references to core-persistence
   attributes            MarketplaceAttribute[]
   stores                MerchantStore[]
 
@@ -1187,9 +1168,7 @@ model MerchantStore {
   priceListId         String?
   priceList           StockCardPriceList?   @relation(fields: [priceListId], references: [id])
   orders              MarketplaceOrder[]
-  // createdByUser removed - will be handled by userId reference to core-persistence
   platform            MarketplacePlatform   @relation(fields: [marketPlaceId], references: [id])
-  // updatedByUser removed - will be handled by userId reference to core-persistence
   stockcard           StockCard[]           @relation("StockCardToStore")
   warehouse           OrganizationWarehouse? @relation(fields: [warehouseCode], references: [warehouseCode])
 
@@ -1278,21 +1257,6 @@ model MarketplaceProduct {
   @@index([organizationId])
   @@index([organizationId, storeId])
   @@index([organizationId, isActive])
-}
-
-model Notification {
-  id        String    @id @default(cuid())
-  organizationId String @map("organization_id")
-  title     String
-  message   String
-  type      String
-  severity  String
-  read      Boolean   @default(false)
-  readAt    DateTime?
-  readBy    String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  // user relation removed - will be handled by userId reference to core-persistence
 }
 
 model ProductMatch {
