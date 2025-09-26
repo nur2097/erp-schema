@@ -51,6 +51,9 @@ enum MovementDirection {
 enum CurrentMovementType {
   DEBIT
   CREDIT
+  CASH
+  BANK
+  OPENACCOUNT
 }
 
 enum CurrentMovementDocumentType {
@@ -209,7 +212,6 @@ model StockCard {
   unit                    StockUnit                 @default(PIECE)
   shortDescription        String?                   @db.VarChar(150)
   description             String?                   @db.Text
-  // companyCode removed - using organizationId instead
   branchCode              String?                   @db.VarChar(50)
   modelCode               String?                   @db.VarChar(50)
   brandId                 String?                   @db.VarChar(100)
@@ -632,8 +634,6 @@ model Current {
   stockCardManufacturer StockCardManufacturer[]
   stockMovement         StockMovement[]
 
-  // OrderPrepareWarehouse relation removed - functionality deprecated
-
   @@unique([organizationId, currentCode], map: "uniq_current_code_per_org")
   @@unique([currentCode])
   @@index([organizationId])
@@ -807,7 +807,7 @@ model Invoice {
   createdBy         String?
   updatedBy         String?
 
-  order             MarketplaceOrder?   @relation(fields: [orderId], references: [id])
+  order             MerchantOrder?   @relation(fields: [orderId], references: [id])
   branch            OrganizationBranch  @relation("InvoiceBranch", fields: [branchCode], references: [branchCode])
   current           Current?            @relation(fields: [currentCode], references: [currentCode])
   outBranch         OrganizationBranch? @relation("InvoiceOutBranch", fields: [outBranchCode], references: [branchCode])
@@ -946,11 +946,11 @@ model PosMovement {
   currentMovement   CurrentMovement?          @relation(fields: [currentMovementId], references: [id])
 }
 
-model MarketplaceOrder {
+model MerchantOrder {
   id                         String                       @id @default(cuid())
   organizationId             String                       @map("organization_id")
   platformOrderId            String
-  platform                   String // "TRENDYOL", "HEPSIBURADA", "SHOPIFY"
+  platform                   String              // "TRENDYOL", "HEPSIBURADA", "SHOPIFY"
   customerId                 String
   status                     OrderStatus         @default(PENDING) // Migrated from TrendyolOrderStatus
   currency                   String @default("TRY")
@@ -993,13 +993,13 @@ model MarketplaceOrder {
 
   // Platform specific data stored as JSON for future flexibility
   platformData               Json? // Additional platform-specific fields (Hepsiburada, Shopify specific data)
-  billingAddress             MarketplaceOrderAddress?     @relation("BillingAddress", fields: [billingAddressId], references: [id])
-  shippingAddress            MarketplaceOrderAddress?     @relation("ShippingAddress", fields: [shippingAddressId], references: [id])
+  billingAddress             MerchantOrderAddress?     @relation("BillingAddress", fields: [billingAddressId], references: [id])
+  shippingAddress            MerchantOrderAddress?     @relation("ShippingAddress", fields: [shippingAddressId], references: [id])
   store                      MerchantStore                @relation(fields: [storeId], references: [id])
-  cargos                     MarketplaceOrderCargo[]
-  items                      MarketplaceOrderItem[]
-  addresses                  MarketplaceOrderAddress[]
-  statusHistory              MarketplaceOrderStatusHistory[]
+  cargos                     MerchantOrderCargo[]
+  items                      MerchantOrderItem[]
+  addresses                  MerchantOrderAddress[]
+  statusHistory              MerchantOrderStatusHistory[]
   invoices                   Invoice[]
 
   @@unique([organizationId, platformOrderId, platform], map: "uniq_order_platform_id_per_org")
@@ -1011,7 +1011,7 @@ model MarketplaceOrder {
   @@index([organizationId, storeId])
 }
 
-model MarketplaceOrderAddress {
+model MerchantOrderAddress {
   id             String   @id @default(cuid())
   organizationId String   @map("organization_id")
   orderId        String
@@ -1033,12 +1033,12 @@ model MarketplaceOrderAddress {
   longitude      String? // Konum bilgisi
   neighborhood   String? // Mahalle bilgisi
   phone          String? // Telefon bilgisi
-  billingOrders  MarketplaceOrder[]  @relation("BillingAddress")
-  shippingOrders MarketplaceOrder[]  @relation("ShippingAddress")
-  order          MarketplaceOrder    @relation(fields: [orderId], references: [id])
+  billingOrders  MerchantOrder[]  @relation("BillingAddress")
+  shippingOrders MerchantOrder[]  @relation("ShippingAddress")
+  order          MerchantOrder    @relation(fields: [orderId], references: [id])
 }
 
-model MarketplaceOrderCargo {
+model MerchantOrderCargo {
   id             String    @id @default(uuid())
   organizationId String    @map("organization_id")
   name           String
@@ -1049,10 +1049,10 @@ model MarketplaceOrderCargo {
   deliveryNote   String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
-  order          MarketplaceOrder     @relation(fields: [orderId], references: [id])
+  order          MerchantOrder     @relation(fields: [orderId], references: [id])
 }
 
-model MarketplaceOrderItem {
+model MerchantOrderItem {
   id                      String   @id @default(cuid())
   organizationId          String   @map("organization_id")
   orderId                 String
@@ -1079,12 +1079,12 @@ model MarketplaceOrderItem {
 
   createdAt           DateTime             @default(now())
   updatedAt           DateTime             @updatedAt
-  order               MarketplaceOrder     @relation(fields: [orderId], references: [id])
+  order               MerchantOrder        @relation(fields: [orderId], references: [id])
   marketplaceProduct  MarketplaceProduct?  @relation(fields: [barcode], references: [barcode])
-  discountDetails     MarketplaceOrderItemDiscount[]
+  discountDetails     MerchantOrderItemDiscount[]
 }
 
-model MarketplaceOrderItemDiscount {
+model MerchantOrderItemDiscount {
   id                 String   @id @default(cuid())
   organizationId     String   @map("organization_id")
   orderItemId        String
@@ -1094,10 +1094,10 @@ model MarketplaceOrderItemDiscount {
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
-  orderItem MarketplaceOrderItem @relation(fields: [orderItemId], references: [id])
+  orderItem         MerchantOrderItem @relation(fields: [orderItemId], references: [id])
 }
 
-model MarketplaceOrderStatusHistory {
+model MerchantOrderStatusHistory {
   id             String      @id @default(cuid())
   organizationId String      @map("organization_id")
   orderId        String
@@ -1106,7 +1106,7 @@ model MarketplaceOrderStatusHistory {
   note           String?
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
-  order          MarketplaceOrder       @relation(fields: [orderId], references: [id])
+  order          MerchantOrder       @relation(fields: [orderId], references: [id])
 
   @@index([organizationId, orderId])
   @@map("order_status_histories")
@@ -1167,7 +1167,7 @@ model MerchantStore {
   products            MarketplaceProduct[]
   priceListId         String?
   priceList           StockCardPriceList?   @relation(fields: [priceListId], references: [id])
-  orders              MarketplaceOrder[]
+  orders              MerchantOrder[]
   platform            MarketplacePlatform   @relation(fields: [marketPlaceId], references: [id])
   stockcard           StockCard[]           @relation("StockCardToStore")
   warehouse           OrganizationWarehouse? @relation(fields: [warehouseCode], references: [warehouseCode])
@@ -1250,7 +1250,7 @@ model MarketplaceProduct {
   attributes               MarketplaceAttribute[]     @relation("MarketplaceAttributesToMarketplaceProducts")
   categories               MarketplaceCategory[]      @relation("ProductsOnCategories")
 
-  orderItems MarketplaceOrderItem[]
+  orderItems               MerchantOrderItem[]
 
   @@unique([organizationId, barcode], map: "uniq_marketplace_product_barcode_per_org")
   @@unique([barcode])
